@@ -49,6 +49,31 @@
                         <h3>Concourse Architecture</h3>
                         <img src="images/concourse_architecture.png" class="plain" width="100%">
                     </section>
+                    <section>
+                        <h2>Concourse Pipeline</h2>
+                        <h3>=</h3>
+                        <h3>Resource + Job + Plan + Task</h3>
+                    </section>
+                    <section>
+                        <h4>pipeline.yml</h4>
+                        <pre><code class="yaml" data-trim>
+                            resources:
+                            - name: booklit
+                              type: git
+                              source: {uri: "https://github.com/vito/booklit"}
+                            
+                            jobs:
+                            - name: unit
+                              plan:
+                              - get: booklit
+                                trigger: true
+                              - task: test
+                                file: booklit/ci/test.yml
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Concourse Resource</h2>
+                    </section>
                 </section>
 
                 <!-- Concourse Setup -->
