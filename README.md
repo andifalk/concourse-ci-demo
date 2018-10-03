@@ -1,7 +1,7 @@
 # Concourse CI Demo
 Presentation and live coding demos for Concourse CI
 
-[Presentation (HTML5)](https://andifalk.github.io/concourse-ci-demo/presentation/index.html)
+[Presentation (HTML5)](https://andifalk.github.io/concourse-ci-demo/presentation)
 
 ## Requirements
 
@@ -41,11 +41,11 @@ To access Concourse CI using the fly command line tool you first have to
 login to Concourse CI with following command:
 
 ```
-fly login -t local -c http://localhost:8080 -u myuser -p mypass
+fly login -t local -c http://127.0.0.1:8080 -u test -p test
 ```
 
 To verify if Concourse CI is running as expected the following command can be used to execute a *Hello World* example:
 
 ```
-fly login -t local -c http://localhost:8080 -u myuser -p mypass
+fly execute -t local -c hello-world/task-hello.yml
 ```
