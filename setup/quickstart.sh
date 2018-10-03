@@ -1,10 +1,10 @@
 #!/bin/bash
 sudo /home/afa/scripts/concourse quickstart \
-  --basic-auth-username myuser \
-  --basic-auth-password mypass \
+  --basic-auth-username dev \
+  --basic-auth-password dev \
   --worker-work-dir /home/afa/concourse/worker \
-  --postgres-user myuser \
-  --postgres-password mypass \
-  --worker-garden-dns-server 8.8.8.8
+  --postgres-user concourse \
+  --postgres-password concourse \
+  --worker-garden-dns-server 1.1.1.1
 
 

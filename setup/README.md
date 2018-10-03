@@ -5,8 +5,8 @@ Quick start for getting Concourse CI up and running.
 
 The PostgreSQL database requires the following before starting Concourse CI:
 
-1. User role named _myuser_ with password _mypass_
-2. A database named _atc_ with user _myuser_ as database owner
+1. User role named _concourse_ with password _concourse_
+2. A database named _atc_ with user _concourse_ as database owner
 
 ## Startup Concourse CI
 
@@ -16,7 +16,7 @@ The PostgreSQL database requires the following before starting Concourse CI:
 
 To verify that Concourse CI is up and running please check with following commands:
 ```
-fly login -t local -c http://127.0.0.1:8080 -u myuser -p mypass
+fly login -t local -c http://127.0.0.1:8080 -u dev -p dev
 fly workers -t local
 ```
 
