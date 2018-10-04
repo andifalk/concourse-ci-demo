@@ -56,21 +56,28 @@
                 <!-- Concourse CI Principles and Architecture-->
                 <section>
                     <section>
-                        <h2>What is Concourse CI</h2>
-                        <figure>
-                        <blockquote cite="https://concourse-ci.org">&ldquo;Concourse presents a general approach to automation that makes it great for CI/CD&rdquo;</blockquote>
-                        <figcaption>https://concourse-ci.org</figcaption>
-                        </figure>    
+                        <h1>What is Concourse CI ?</h1>
+                        <img src="images/concourse-black.png" class="plain" width="40%">
+                    </section>
+                    <section>
+                        <h3>&ldquo;Concourse is an open-source continuous thing-doer&rdquo;</h2>
+                        <p>&ldquo;Built on the simple mechanics of resources, tasks, and jobs, Concourse presents a general approach to automation that makes it great for CI/CD&rdquo;</p>    
+                        <p><small><a href="https://concourse-ci.org">https://concourse-ci.org</a></small></p>
                     </section>
                     <section>
                         <h2>Concourse CI Features</h2>
                         <p>Native Visualized Pipelines</p>
-                        <p>Configuration As Code</p>
                         <p>Clean Isolation By Using Containers</p>
                         <p>Administration Via Command Line</p>
+                        <img src="images/concourse-sample-pipeline.gif" class="plain">
+                        <br><small><a href="https://concoursetutorial.com/">(picture taken from Concourse Tutorial by Stark & Wayne)</a></small>
                     </section>
                     <section>
-                        <h1>Concourse CI Concepts</h2>
+                        <h2>Concourse CI Concepts</h2>
+                        <p>Configuration As Code</p>
+                        <p>No Plugins</p>
+                        <p>Simple Building Blocks for Pipelines</p>   
+                        <img src="images/concourse_concepts.png" class="plain" width="30%">  
                     </section>
                     <section>
                         <h2>Pipeline</h2>
@@ -87,6 +94,9 @@
                         <p>Git: Pull/push from/to git repository</p>
                         <p>S3: Get and upload from/to AWS S3</p>
                         <p>CF: Deploy an application to Cloud Foundry</p>
+                    </section>
+                    <section>
+                        <h2>Resource Types</h2>
                         <h4>Community</h4>
                         <p>Artifactory: Get/upload artifacts from/to Artifactory</p>
                         <p>Kubernetes: Apply kubectl actions</p>
@@ -117,10 +127,10 @@
                         <p>pipeline-helloworld.yml</p>
                         <pre><code class="yaml" data-trim>
                                 jobs:
-                                    - name: hello-world
-                                    plan:
-                                    - task: say-hello
-                                        file: task-helloworld.yml
+                                - name: hello-world
+                                  plan:
+                                  - task: say-hello
+                                    file: task-helloworld.yml
                         </code></pre>
                     </section>    
                     <section>
@@ -152,6 +162,7 @@
                 <section>
                     <section>
                         <h1>Setting up Concourse CI</h1>
+                        <img src="images/setup.png" class="plain" width="35%">
                     </section>
                     <section>
                         <h2>Possible Options</h2>
@@ -190,9 +201,68 @@
                 <section>
                     <section>
                         <h2>Concourse</h2>
-                        <h2>Command Line</h2>
-                        <h2>1x1</h2>
+                        <h4>Command Line 1 x 1</h4>
+                        <p><small><a href="https://github.com/concourse/fly/releases">Concourse Fly CLI</a></small></p>
+                        <img src="images/bash.png" class="plain" width="40%">
                     </section>
+                    <section>
+                        <h3>Getting Started</h3>
+                        <p>Login to Concourse</p>
+                        <pre><code class="shell" data-trim>
+                            $ fly login -t local -c http://127.0.0.1:8080 \
+                              -u user -p password 
+                        </code></pre>
+                        <p>Logout from one Concourse target</p>
+                        <pre><code class="shell" data-trim>
+                            $ fly logout -t local 
+                        </code></pre>
+                        <p>Logout from all Concourse targets</p>
+                        <pre><code class="shell" data-trim>
+                            $ fly logout --all 
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Execute Tasks</h3>
+                        <p>Execute a single task</p>
+                        <pre><code class="shell" data-trim>
+                            $ fly execute -t local -c mytask.yml 
+                        </code></pre>
+                        <p>Show results of a build execution</p>
+                        <pre><code class="shell" data-trim>
+                            $ fly -t local builds
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Using Pipelines</h3>
+                        <p>Create or update a pipeline</p>
+                        <pre><code class="shell" data-trim>
+                            $ fly set-pipeline -t local -p mypipeline \
+                                -c mypipeline-config.yml 
+                        </code></pre>
+                        <p>Un-pause a pipeline</p>
+                        <pre><code class="shell" data-trim>
+                            $ fly unpause-pipeline -t local -p mypipeline 
+                        </code></pre>
+                        <p>Delete a pipeline</p>
+                        <pre><code class="shell" data-trim>
+                            $ fly destroy-pipeline -t local -p mypipeline 
+                        </code></pre>
+                    </section>
+                    <section>
+                            <h3>Start & Watch Jobs</h3>
+                            <p>Start a job in a pipeline</p>
+                            <pre><code class="shell" data-trim>
+                                $ fly trigger-job -t local -j mypipeline/myjob 
+                            </code></pre>
+                            <p>Start a job in a pipeline and watch output</p>
+                            <pre><code class="shell" data-trim>
+                                $ fly trigger-job -t local -j mypipeline/myjob --watch
+                            </code></pre>
+                            <p>Stream a build's output</p>
+                            <pre><code class="shell" data-trim>
+                                $ fly watch -t local -j mypipeline/myjob 
+                            </code></pre>
+                        </section>
                 </section>
                 
                 <!-- Concourse CI Security-->
@@ -229,6 +299,42 @@
                         <p>CredHub manages credentials like passwords, certificates, certificate authorities, ssh keys, rsa keys and arbitrary values</p>
                         <a href="https://github.com/cloudfoundry-incubator/credhub">https://github.com/cloudfoundry-incubator/credhub</a>
                     </section>
+                    <section>
+                        <h3>Concourse quickstart</h3>
+                        <h3>with Vault</h3>
+                        <p>Required: Installed Vault instance</p>
+                        <pre><code class="shell" data-trim>
+                            $ concourse quickstart \
+                                --add-local-user dev:dev \
+                                --main-team-local-user dev \
+                                --postgres-user concourse --postgres-password concourse \
+                                --worker-work-dir /home/afa/concourse/worker \
+                                --external-url http://192.168.178.27:8080 \
+                                --worker-garden-dns-server 1.1.1.1 \
+                                --vault-url http://10.2.0.3:8200 \
+                                --vault-auth-backend approle \
+                                --vault-auth-param role_id=db02de05-fa39-4855-059b-... \
+                                --vault-auth-param secret_id=6a174c20-f6de-a53c-74d2-...
+                        </code></pre>
+                    </section>  
+                    <section>
+                        <h2>Credential lookup in Vault</h2>
+                        <p>The parameter <em>((my_password))</em> is looked up in Vault namespaces in this order:</p>
+                        <ol>    
+                            <li>/concourse/{TEAM}/{PIPELINE}/my_password</li>
+                            <li>/concourse/{TEAM}/my_password</li>
+                        </ol>
+                        <pre><code class="yaml" data-trim>
+                            plan:
+                            - get: my-repo
+                            - task: integration
+                              file: my-repo/ci/integration.yml
+                              params:
+                                REMOTE_SERVER: 10.20.30.40:8080
+                                USERNAME: ((my-username))
+                                PASSWORD: ((my-password))
+                        </code></pre>
+                    </section>
                 </section>
 
                 <!-- Conclusion -->
@@ -248,10 +354,12 @@
                         <small>
                             <ul>
                                 <li><a href="https://concourse-ci.org">Concourse CI (https://concourse-ci.org)</a></li>
+                                <li><a href="https://github.com/concourse/fly/releases">Concourse Fly CLI (https://github.com/concourse/fly/releases)</a></li>
+                                <li><a href="https://github.com/cloudfoundry-incubator/credhub">CredHub (https://github.com/cloudfoundry-incubator/credhub)</a></li>
                                 <li><a href="https://www.vaultproject.io">Vault (https://www.vaultproject.io)</a></li>
                                 <li><a href="https://github.com/andifalk/concourse-ci-demo">Sources and Presentation (https://github.com/andifalk/concourse-ci-demo)</a></li>
                             </ul>
-                            <p>All images used are from <a href="https://pixabay.com/">Pixabay</a> and are published under <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">Creative Commons CC0 license.</a></p>
+                            <p>All images used are from <a href="https://pixabay.com/">Pixabay</a> <br> and published under <a href="http://creativecommons.org/publicdomain/zero/1.0/deed.en">Creative Commons CC0 license.</a></p>
                             All used logos are trademarks of corresponding companies
                         </small>
                     </section>
