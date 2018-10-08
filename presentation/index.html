@@ -41,7 +41,7 @@
                         <p><small>Andreas Falk</small></p>
                         <img src="images/concourse-black.png" class="plain" width="40%">
                     </section>
-                    <section>
+                    <section data-background-color="white">
                         <img src="images/andreas_falk.jpg" class="plain" width="35%">
                         <h4>Andreas Falk</h4>
                         <small>
@@ -193,6 +193,23 @@
                               --worker-work-dir /home/afa/concourse/worker \
                               --external-url http://192.168.178.27:8080 \
                               --worker-garden-dns-server 1.1.1.1
+                        </code></pre>
+                    </section>                    
+                    <section>
+                        <h3>Install into Kubernetes cluster</h3>
+                        <p>Prerequisite: <a href="https://docs.helm.sh/using_helm/#installing-helm">Install Helm</a></p>
+                        <pre><code class="Bash" data-trim>
+                            $ helm install stable/concourse 
+                        </code></pre>
+                        <p>After installing, perform this in same shell:</p>
+                        <pre><code class="Bash" data-trim>
+                            $ helm install stable/concourse 
+                            $ export POD_NAME=$(kubectl get pods --namespace default \
+                              -l "app=alternating-angelfish-web" \
+                              -o jsonpath="{.items[0].metadata.name}")
+                            $ echo "Visit http://127.0.0.1:8080 to use Concourse"
+                            $ kubectl port-forward --namespace \ 
+                              default $POD_NAME 8080:8080
                         </code></pre>
                     </section>                    
                 </section>
