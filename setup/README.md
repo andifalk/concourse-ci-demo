@@ -3,20 +3,29 @@ Quick start for getting Concourse CI up and running.
 
 ## Prerequisites
 
-The PostgreSQL database requires the following before starting Concourse CI:
+* Docker and Docker-Compose (for docker-compose quickstart)
+* Kubernetes Cluster Minikube (for kubernetes quickstart)
+* Helm (for kubernetes quickstart)
+* Fly CLI [Download](https://concourse-ci.org/download.html)
 
-1. User role named _concourse_ with password _concourse_
-2. A database named _atc_ with user _concourse_ as database owner
-
-## Startup Concourse CI
+## Startup Concourse CI using docker-compose
 
 ```
-./quickstart.sh
+./quickstart-docker.sh
 ```
+
+## Startup Concourse CI using kubernetes / helm
+
+```
+./kubernetes-install.sh
+./quickstart-kubernetes.sh
+```
+
+## Verify correct setup
 
 To verify that Concourse CI is up and running please check with following commands:
 ```
-fly login -t local -c http://127.0.0.1:8080 -u dev -p dev
+fly login -t local -c http://127.0.0.1:8080 -u test -p test
 fly workers -t local
 ```
 

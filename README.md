@@ -5,28 +5,32 @@ Presentation and live coding demos for Concourse CI
 
 ## Requirements
 
-* Concourse CI [Download](https://concourse-ci.org/download.html)
+* Docker and Docker-Compose (for docker-compose quickstart)
+* Kubernetes Cluster Minikube (for kubernetes quickstart)
+* Helm (for kubernetes quickstart)
 * Fly CLI [Download](https://concourse-ci.org/download.html)
-* PostgreSQL database (if quickstart is used) [Installation](https://www.postgresql.org/download/)
 
 ## Setup
 
-#### Docker Compose
+### Docker
 
 ```
 wget https://concourse-ci.org/docker-compose.yml
 docker-compose up
 ```
-#### Quickstart
+#### Kubernetes / Helm
 
+Install concourse into kubernetes cluster:
 ```
-sudo concourse quickstart \
-  --basic-auth-username dev \
-  --basic-auth-password dev \
-  --worker-work-dir ~/concourse/worker \
-  --postgres-user concourse \
-  --postgres-password concourse \
-  --worker-garden-additional-dns-server 1.1.1.1
+helm install stable/concourse
+```
+
+To enable access to concourse outside of kubernetes cluster
+execute following commands in same shell:
+```
+export POD_NAME=$(kubectl get pods --namespace default -l "app=alternating-angelfish-web" -o jsonpath="{.items[0].metadata.name}")
+echo "Visit http://127.0.0.1:8080 to use Concourse"
+kubectl port-forward --namespace default $POD_NAME 8080:8080
 ```
 
 ## Access Concourse CI Web Console
