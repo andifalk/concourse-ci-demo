@@ -1,6 +1,13 @@
+resources:
+- name: myschedule
+  type: time
+  source: {interval: 30s}
+
 jobs:
 - name: hello-world-job-1
   plan:
+  - get: myschedule
+    trigger: true 
   - task: say-hello
     config:
       platform: linux
@@ -10,4 +17,3 @@ jobs:
       run:
         path: echo
         args: ["Hello World!"]
-  
