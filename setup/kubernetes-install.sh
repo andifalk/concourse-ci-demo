@@ -1,3 +1,3 @@
 #!/bin/bash
 
-helm install stable/concourse
+helm install stable/concourse --name concourse
