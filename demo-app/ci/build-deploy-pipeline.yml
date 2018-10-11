@@ -1,0 +1,28 @@
+resources:
+- name: demoapp-git-resource
+  type: git
+  source:
+    uri: https://github.com/andifalk/concourse-ci-demo.git
+    branch: master
+
+- name: deploy-demoapp-to-cf-resource
+  type: cf
+  source:
+    api:  https://api.local.pcfdev.io
+    username: ((cf.user))
+    password: ((cf.password))
+    organization: pcfdev-org
+    space: pcfdev-space
+    skip_cert_check: true
+
+jobs:
+- name: build-demo-app-job
+  plan:
+    - get: demoapp-git-resource
+      trigger: true
+    - task: build
+      file: demoapp-git-resource/demo-app/ci/task.yml
+    - put: deploy-demoapp-to-cf-resource
+      params:
+        manifest: demoapp-git-resource/demo-app/cf/manifest.yml
+        path: deploy-artifact/*.jar

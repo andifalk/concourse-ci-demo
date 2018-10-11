@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DemoApplication",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "src.main.java.com.example.demoapp.DemoApplication",
+            "args": "",
+            "projectName": "demo-app"
+        }
+    ]
+}
