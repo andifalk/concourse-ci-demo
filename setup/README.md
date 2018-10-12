@@ -3,22 +3,21 @@ Quick start for getting Concourse CI up and running.
 
 ## Prerequisites
 
-* Docker and Docker-Compose (for docker-compose quickstart)
-* Kubernetes Cluster Minikube (for kubernetes quickstart)
-* Helm (for kubernetes quickstart)
+* Docker and Docker-Compose [Install](https://docs.docker.com/compose/)
+* PCFDev [Download](https://network.pivotal.io/products/pcfdev#/releases/88478)
+* Credhub CLI [Install](https://github.com/cloudfoundry-incubator/credhub-cli)
 * Fly CLI [Download](https://concourse-ci.org/download.html)
 
-## Startup Concourse CI using docker-compose
+## Startup required services using docker-compose
+
+The following shell scripts starts up the following required services:
+
+- UAA and CredHub by CloudFoundry
+- JFrog Artifactory OSS
+- Concourse CI
 
 ```
-./quickstart-docker.sh
-```
-
-## Startup Concourse CI using kubernetes / helm
-
-```
-./kubernetes-install.sh
-./quickstart-kubernetes.sh
+./setup.sh
 ```
 
 ## Verify correct setup

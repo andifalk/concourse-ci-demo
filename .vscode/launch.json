@@ -10,6 +10,16 @@
             "mainClass": "src.main.java.com.example.demoapp.DemoApplication",
             "args": "",
             "projectName": "demo-app"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<demo-app>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.example.demoapp.DemoApplication",
+            "projectName": "demo-app",
+            "args": ""
         }
     ]
 }
