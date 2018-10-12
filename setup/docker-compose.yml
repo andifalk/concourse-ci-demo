@@ -20,7 +20,7 @@ services:
     depends_on:
       - uaa
     environment:
-      UAA_URL: http://localhost:8090/uaa
+      UAA_URL: http://uaa:8080/uaa
       UAA_INTERNAL_URL: http://uaa:8080/uaa
 
   # JFrog Artifactory OSS
@@ -58,6 +58,7 @@ services:
     ports: ["8080:8080"]
     links:
       - artifactory:artifactory
+      - credhub:credhub
     environment:
     - CONCOURSE_POSTGRES_HOST=concourse-db
     - CONCOURSE_POSTGRES_USER=concourse_user

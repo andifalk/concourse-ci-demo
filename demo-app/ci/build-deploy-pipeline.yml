@@ -21,8 +21,8 @@ resources:
   type: cf
   source:
     api:  https://api.local.pcfdev.io
-    username: ((cf.user))
-    password: ((cf.password))
+    username: admin
+    password: admin
     organization: pcfdev-org
     space: pcfdev-space
     skip_cert_check: true
@@ -46,6 +46,7 @@ jobs:
   - get: artifactory-resource
     trigger: true
     passed: [build-job]
+  - get: demoapp-git-resource  
   - put: cf-resource
     params:
       manifest: demoapp-git-resource/demo-app/cf/manifest.yml
