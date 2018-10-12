@@ -28,7 +28,7 @@ services:
     image: docker.bintray.io/jfrog/artifactory-oss:6.4.1
     container_name: artifactory
     ports:
-     - 80:8081
+     - 8081:8081
     volumes:
      - /data/artifactory:/var/opt/jfrog/artifactory
 #    environment:
@@ -56,6 +56,8 @@ services:
     privileged: true
     depends_on: [concourse-db, credhub, artifactory]
     ports: ["8080:8080"]
+    links:
+      - artifactory:artifactory
     environment:
     - CONCOURSE_POSTGRES_HOST=concourse-db
     - CONCOURSE_POSTGRES_USER=concourse_user

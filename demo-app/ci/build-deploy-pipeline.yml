@@ -13,7 +13,7 @@ resources:
 - name: artifactory-resource
   type: artifactory-resource-type
   source:
-    uri: http://localhost/artifactory
+    uri: http://127.0.0.1:8081/artifactory
     username: admin
     password: admin
     build_name: demo-build
