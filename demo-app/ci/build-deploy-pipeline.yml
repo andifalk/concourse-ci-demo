@@ -20,9 +20,9 @@ jobs:
     - get: demoapp-git-resource
       trigger: true
     - task: build
-      file: demoapp-git-resource/demo-app/ci/task.yml
+      file: demoapp-git-resource/demo-app/ci/task-build.yml
     - put: cf-resource
       params:
         manifest: demoapp-git-resource/demo-app/cf/manifest.yml
-        path: deploy-artifact/demo-app/build/libs/demo-app-1.0.0-SNAPSHOT.jar  
+        path: deploy-artifact/demo-app-1.0.0-SNAPSHOT.jar
               
