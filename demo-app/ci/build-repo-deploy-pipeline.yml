@@ -45,8 +45,7 @@ jobs:
   plan:
   - get: artifactory-resource
     trigger: true
-    passed: [build-job]
-  - get: demoapp-git-resource  
+    passed: [build-job]  
   - put: cf-resource
     params:
       manifest: demoapp-git-resource/demo-app/cf/manifest.yml

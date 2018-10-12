@@ -11,4 +11,4 @@ jobs:
     - get: demoapp-git-resource
       trigger: true
     - task: build
-      file: demoapp-git-resource/demo-app/ci/task.yml
+      file: demoapp-git-resource/demo-app/ci/task-build.yml
