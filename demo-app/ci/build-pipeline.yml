@@ -6,7 +6,7 @@ resources:
     branch: master
 
 jobs:
-- name: build-demo-app-job
+- name: build-job
   plan:
     - get: demoapp-git-resource
       trigger: true
