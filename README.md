@@ -1,68 +1,38 @@
-# Concourse CI Demo Pipeline
-This contains the demo pipeline for Concourse CI
+# Concourse CI Quickstart
+Quick start for getting Concourse CI up and running.
 
-## Requirements
+## Prerequisites
 
-* Java 8 SDK
-* Java IDE
+* Docker and Docker-Compose [Install](https://docs.docker.com/compose/)
+* PCFDev [Download](https://network.pivotal.io/products/pcfdev#/releases/88478)
+* Credhub CLI [Install](https://github.com/cloudfoundry-incubator/credhub-cli)
+* Fly CLI [Download](https://concourse-ci.org/download.html)
 
-## Demo spring boot application
+## Startup required services using docker-compose
 
-The demo application is just a simple spring boot application providing a REST API
-with one GET and one POST request. The application is secured and can be accessed via basic auth or form based authentication using the credentials user/secret.
+The following shell scripts starts up the following required services:
 
-```
-$ http localhost:9090 --auth user:secret
-
-HTTP/1.1 200 OK
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-Content-Length: 25
-Content-Type: application/json;charset=UTF-8
-Expires: 0
-Pragma: no-cache
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-X-XSS-Protection: 1 ; mode=block
-
-{
-    "message": "Hello World"
-}
-```
+- UAA and CredHub by CloudFoundry
+- JFrog Artifactory OSS
+- Concourse CI
 
 ```
-$ http post localhost:9090 message=world --auth user:secret
-
-HTTP/1.1 201 Created
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-Content-Length: 11
-Content-Type: application/json;charset=UTF-8
-Expires: 0
-Pragma: no-cache
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-X-XSS-Protection: 1 ; mode=block
-
-Hello world
+./setup.sh
 ```
 
-## Concourse Pipelines
+## Verify correct setup
 
-The pipelines are created in 3 steps:
+To verify that Concourse CI is up and running please check with following commands:
+```
+fly login -t local -c http://127.0.0.1:8080 -u test -p test
+fly workers -t local
+```
 
-1. Basic pipeline just for getting source from git repository and compiling the app and running tests
-2. Extend basic pipeline to deploy the created jar file to CloudFoundry (local PCFDev instance)
-3. Extend second pipeline with an additional step to upload created binary artifacts into artifactory repository first and then deploy the jar from there to CloudFoundry (PCFDev)
+This should return something similar as
 
-### Basic pipeline
+```
+name           containers  platform  tags  team  state    version
+my-concourse   0           linux     none  none  running  2.1    
+```
 
-![Image of basic pipeline](https://github.com/andifalk/concourse-ci-demo/raw/master/images/demo_build_pipeline.png)
-
-### Build/Deploy pipeline
-
-![Image of build/deploy pipeline](https://github.com/andifalk/concourse-ci-demo/raw/master/images/demo_build_deploy_pipeline.png)
-
-### Build/Repo/Deploy pipeline
-
-![Image of build/repo/deploy pipeline](https://github.com/andifalk/concourse-ci-demo/raw/master/images/demo_build_repo_deploy_pipeline.png)
-
-
+If no worker appears or it appears as _stalled_ then something has gone wrong!
