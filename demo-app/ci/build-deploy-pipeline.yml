@@ -1,22 +1,9 @@
-resource_types:
-- name: artifactory-resource-type
-  type: docker-image
-  source:
-    repository: springio/artifactory-resource
-    tag: 0.0.4
 resources:
 - name: demoapp-git-resource
   type: git
   source:
     uri: https://github.com/andifalk/concourse-ci-demo.git
     branch: master
-- name: artifactory-resource
-  type: artifactory-resource-type
-  source:
-    uri: http://artifactory:8081/artifactory
-    username: admin
-    password: admin
-    build_name: demo-build
 - name: cf-resource
   type: cf
   source:
@@ -34,21 +21,8 @@ jobs:
       trigger: true
     - task: build
       file: demoapp-git-resource/demo-app/ci/task.yml
-    - put: artifactory-resource
+    - put: cf-resource
       params:
-        repo: libs-snapshot-local
-        folder: deploy-artifact
-        build_number: "${BUILD_PIPELINE_NAME}-${BUILD_JOB_NAME}-${BUILD_NAME}"
-        build_uri: "http://127.0.0.1:8080/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}/jobs/${BUILD_JOB_NAME}/builds/${BUILD_NAME}"
-        disable_checksum_uploads: true
-- name: deploy-job
-  plan:
-  - get: artifactory-resource
-    trigger: true
-    passed: [build-job]
-  - get: demoapp-git-resource  
-  - put: cf-resource
-    params:
-      manifest: demoapp-git-resource/demo-app/cf/manifest.yml
-      path: artifactory-resource/demo-app-0.0.1-SNAPSHOT.jar  
+        manifest: demoapp-git-resource/demo-app/cf/manifest.yml
+        path: deploy-artifact/demo-app/build/libs/demo-app-1.0.0-SNAPSHOT.jar  
               
