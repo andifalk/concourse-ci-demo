@@ -1,5 +1,8 @@
-# Concourse CI Quickstart
+# Concourse CI Demo
 Quick start for getting Concourse CI up and running.
+
+* [Presentation slides (html5)](https://andifalk.github.io/concourse-ci-demo/presentation/index.html)
+* [Presentation slides (pdf)](https://github.com/andifalk/concourse-ci-demo/raw/gh-pages/Concourse%20CI.pdf)
 
 ## Prerequisites
 
