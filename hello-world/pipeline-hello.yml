@@ -1,5 +1,5 @@
 jobs:
-- name: hello-world-job-1
+- name: hello-world-job
   plan:
   - task: say-hello
     config:

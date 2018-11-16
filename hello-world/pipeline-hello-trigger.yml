@@ -4,7 +4,7 @@ resources:
   source: {interval: 30s}
 
 jobs:
-- name: hello-world-job-1
+- name: hello-world-job
   plan:
   - get: myschedule
     trigger: true 
