@@ -79,11 +79,11 @@ fly unpause-pipeline -t local -p build-deploy-demo-app
 
 ### Build/Deploy/Scan pipeline
 
-![Image of build/repo/deploy pipeline](https://github.com/andifalk/concourse-ci-demo/raw/master/images/demo_build_repo_deploy.png)
+![Image of build/deploy/scan pipeline](https://github.com/andifalk/concourse-ci-demo/raw/master/images/demo_build_deploy_scan.png)
 
 ```
 fly login -t local -c http://127.0.0.1:8080 -u test -p test
-fly set-pipeline -t local -p build-deploy-scan-demo-app -c ./build-deploy-scan-pipeline.yml
+fly set-pipeline -t local -p build-deploy-scan-demo-app -c ./build-deploy-scan-pipeline.yml -l ./credentials.yml
 ```
 
 Initially all pipelines are created in paused state. To unpause the pipeline just use this command:

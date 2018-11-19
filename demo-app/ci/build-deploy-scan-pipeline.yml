@@ -4,6 +4,10 @@ resource_types:
   source:
     repository: mevansam/cf-event
     tag: latest
+- name: slack-alert
+  type: docker-image
+  source:
+    repository: arbourd/concourse-slack-alert-resource    
 
 resources:
 - name: demoapp-git-resource
@@ -15,8 +19,8 @@ resources:
   type: cf
   source:
     api:  https://api.local.pcfdev.io
-    username: admin
-    password: admin
+    username: ((pcf_user))
+    password: ((pcf_password))
     organization: pcfdev-org
     space: pcfdev-space
     skip_cert_check: true
@@ -24,13 +28,26 @@ resources:
   type: cf-event-type
   source:
     api: https://api.local.pcfdev.io
-    user: admin
-    password: admin
+    user: ((pcf_user))
+    password: ((pcf_password))
     org: pcfdev-org
     space: pcfdev-space
     skip-ssl-validation: true
     apps:
     - concourse-demo
+- name: notify
+  type: slack-alert
+  source:
+    url: ((slack-hook))
+    channel: '#notifications'  
+
+groups:
+- name: build
+  jobs:
+  - build-job
+- name: test
+  jobs:
+  - scan-job  
 
 jobs:
 - name: build-job
@@ -46,6 +63,8 @@ jobs:
 - name: scan-job
   plan:
     - get: cf-event-resource
+    - get: demoapp-git-resource
+      passed: [build-job]
       trigger: true
     - task: baseline-scan
       config:
@@ -53,6 +72,8 @@ jobs:
         image_resource:
           type: docker-image
           source: {repository: owasp/zap2docker-weekly}
+        inputs:
+        - name: cf-event-resource  
         run:
           path: zap-cli
           args:
@@ -66,5 +87,17 @@ jobs:
           - --recursive
           - --alert-level
           - Informational
-          - http://concourse-demo.local.pcfdev.io/  
-              
+          - http://concourse-demo.local.pcfdev.io/
+      on_success:
+        put: notify
+        params:
+          alert_type: success
+      on_failure:
+        put: notify
+        params:
+          alert_type: failed
+      on_abort:
+        put: notify
+        params:
+          alert_type: aborted
+            
