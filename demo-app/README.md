@@ -53,14 +53,48 @@ The pipelines are created in 3 steps:
 2. Extend basic pipeline to deploy the created jar file to CloudFoundry (local PCFDev instance)
 3. Extend second pipeline with an additional step to upload created binary artifacts into artifactory repository first and then deploy the jar from there to CloudFoundry (PCFDev)
 
-### Basic pipeline
+### Basic build pipeline
 
 ![Image of basic pipeline](https://github.com/andifalk/concourse-ci-demo/raw/master/images/demo_build_pipeline.png)
+
+```
+fly login -t local -c http://127.0.0.1:8080 -u test -p test
+fly set-pipeline -t local -p build-demo-app -c ./build-pipeline.yml
+```
+
+Initially all pipelines are created in paused state. To unpause the pipeline just use this command:
+
+```
+fly unpause-pipeline -t local -p build-demo-app
+```
 
 ### Build/Deploy pipeline
 
 ![Image of build/deploy pipeline](https://github.com/andifalk/concourse-ci-demo/raw/master/images/demo_build_deploy_pipeline.png)
 
-### Build/Repo/Deploy pipeline
+```
+fly login -t local -c http://127.0.0.1:8080 -u test -p test
+fly set-pipeline -t local -p build-deploy-demo-app -c ./build-deploy-pipeline.yml
+```
+
+Initially all pipelines are created in paused state. To unpause the pipeline just use this command:
+
+```
+fly unpause-pipeline -t local -p build-deploy-demo-app
+```
+
+
+### Build/Deploy/Scan pipeline
 
 ![Image of build/repo/deploy pipeline](https://github.com/andifalk/concourse-ci-demo/raw/master/images/demo_build_repo_deploy.png)
+
+```
+fly login -t local -c http://127.0.0.1:8080 -u test -p test
+fly set-pipeline -t local -p build-deploy-scan-demo-app -c ./build-deploy-scan-pipeline.yml
+```
+
+Initially all pipelines are created in paused state. To unpause the pipeline just use this command:
+
+```
+fly unpause-pipeline -t local -p build-deploy-scan-demo-app
+```

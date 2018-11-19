@@ -1,7 +1,7 @@
 applications:
 - name: concourse-demo
   path: ../build/libs/concourse-demo-1.0.0-SNAPSHOT.jar 
-  buildpack: https://github.com/cloudfoundry/java-buildpack.git#v4.7
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git#v4.16.1
   memory: 1G
   host: concourse-demo
   disk_quota: 512M
