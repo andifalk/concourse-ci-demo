@@ -67,16 +67,7 @@ jobs:
       passed: [build-job]
       trigger: true
     - task: baseline-scan
-      config:
-        platform: linux
-        image_resource:
-          type: docker-image
-          source: {repository: owasp/zap2docker-weekly}
-        inputs:
-        - name: cf-event-resource  
-        run:
-          path: demo-app/ci/scan.sh
-          dir: demoapp-git-resource
+      file: demoapp-git-resource/demo-app/ci/task-scan.yml
       on_success:
         put: notify
         params:

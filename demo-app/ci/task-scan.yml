@@ -7,6 +7,9 @@ image_resource:
     repository: owasp/zap2docker-weekly
     tag: latest
 
+inputs:
+- name: demoapp-git-resource
+
 run:
   path: demo-app/ci/scan.sh
   dir: demoapp-git-resource
