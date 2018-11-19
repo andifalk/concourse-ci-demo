@@ -9,10 +9,10 @@ This contains the demo pipeline for Concourse CI
 ## Demo spring boot application
 
 The demo application is just a simple spring boot application providing a REST API
-with one GET and one POST request. The application is secured and can be accessed via basic auth or form based authentication using the credentials user/secret.
+with one GET and one POST request.
 
 ```
-$ http localhost:9090 --auth user:secret
+$ http localhost:9090
 
 HTTP/1.1 200 OK
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
@@ -20,9 +20,6 @@ Content-Length: 25
 Content-Type: application/json;charset=UTF-8
 Expires: 0
 Pragma: no-cache
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-X-XSS-Protection: 1 ; mode=block
 
 {
     "message": "Hello World"
@@ -30,7 +27,7 @@ X-XSS-Protection: 1 ; mode=block
 ```
 
 ```
-$ http post localhost:9090 message=world --auth user:secret
+$ http post localhost:9090 message=world
 
 HTTP/1.1 201 Created
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
@@ -38,9 +35,6 @@ Content-Length: 11
 Content-Type: application/json;charset=UTF-8
 Expires: 0
 Pragma: no-cache
-X-Content-Type-Options: nosniff
-X-Frame-Options: DENY
-X-XSS-Protection: 1 ; mode=block
 
 Hello world
 ```
@@ -82,7 +76,6 @@ Initially all pipelines are created in paused state. To unpause the pipeline jus
 ```
 fly unpause-pipeline -t local -p build-deploy-demo-app
 ```
-
 
 ### Build/Deploy/Scan pipeline
 
