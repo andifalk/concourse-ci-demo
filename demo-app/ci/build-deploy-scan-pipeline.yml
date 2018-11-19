@@ -75,19 +75,8 @@ jobs:
         inputs:
         - name: cf-event-resource  
         run:
-          path: zap-cli
-          args:
-          - quick-scan 
-          - --self-contained
-          - --start-options 
-          - '-config api.disablekey=true'  
-          - --spider
-          - --scanners
-          - all
-          - --recursive
-          - --alert-level
-          - Informational
-          - http://concourse-demo.local.pcfdev.io/
+          path: demo-app/ci/scan.sh
+          dir: demoapp-git-resource
       on_success:
         put: notify
         params:
