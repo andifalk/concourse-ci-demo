@@ -61,8 +61,10 @@ jobs:
           - --start-options 
           - '-config api.disablekey=true'  
           - --spider
-          - -r
-          - -s
-          - xss,sqli
-          - http://concourse-demo.local.pcfdev.io  
+          - --scanners
+          - all
+          - --recursive
+          - --alert-level
+          - Informational
+          - http://concourse-demo.local.pcfdev.io/  
               
