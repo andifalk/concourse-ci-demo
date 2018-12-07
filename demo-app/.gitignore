@@ -26,4 +26,6 @@
 /.nb-gradle/
 /bin
 
+/.vscode/
+
 credentials.yml

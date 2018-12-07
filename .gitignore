@@ -23,3 +23,5 @@
 hs_err_pid*
 
 presentation/node_modules
+
+/.vscode/
