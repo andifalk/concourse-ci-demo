@@ -9,5 +9,7 @@ zap-cli open-url "http://concourse-demo.local.pcfdev.io/"
 zap-cli spider "http://concourse-demo.local.pcfdev.io/"
 zap-cli active-scan --recursive --scanners all "http://concourse-demo.local.pcfdev.io/"
 ip=$(zap-cli alerts --alert-level Low)
+echo $ip
+exit_code=$($ip | wc -l)
 zap-cli shutdown
-exit $ip
+exit $exit_code
